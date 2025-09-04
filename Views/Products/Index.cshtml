@@ -1,0 +1,242 @@
+﻿@model List<GaumataWeb.Models.Product>
+@{
+    ViewData["Title"] = "उत्पादने";
+}
+
+<div class="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 py-12">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16 fade-in-up">
+            <h1 class="text-5xl md:text-7xl font-bold text-green-800 mb-6 marathi-font">
+                आमची उत्पादने
+            </h1>
+            <p class="text-xl text-gray-700 max-w-3xl mx-auto marathi-font">
+                आमच्या शेतातून थेट तुमच्या घरापर्यंत - शुद्ध, ताजी आणि पौष्टिक डेरी उत्पादने
+            </p>
+            <div class="w-24 h-1 bg-green-500 mx-auto mt-6"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            @foreach (var product in Model)
+            {
+                <div class="group bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden fade-in-up">
+                    <div class="relative overflow-hidden">
+                        <img src="@product.ImageUrl" alt="@product.MarathiName"
+                             class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        @if (product.IsAvailable)
+                        {
+                            <div class="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold marathi-font">
+                                उपलब्ध
+                            </div>
+                        }
+                    </div>
+
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-2xl font-bold text-green-800 marathi-font">@product.MarathiName</h3>
+                            <span class="text-2xl font-bold text-green-600">@product.Unit</span>
+                        </div>
+
+                        <p class="text-gray-600 mb-4 marathi-font">@product.MarathiDescription</p>
+
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-green-700 mb-2 marathi-font">वैशिष्ट्ये:</h4>
+                            <ul class="space-y-1">
+                                @foreach (var feature in product.MarathiFeatures)
+                                {
+                                    <li class="text-sm text-gray-600 marathi-font flex items-center">
+                                        <span class="text-green-500 mr-2">✓</span>
+                                        @feature
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <div class="flex items-center border border-green-300 rounded-lg overflow-hidden">
+                                <button type="button" onclick="decrementQuantity(@product.Id)"
+                                        class="px-3 py-2 bg-green-100 hover:bg-green-200 transition text-green-700 font-bold">
+                                    -
+                                </button>
+                                <input type="number" id="qty-@product.Id" value="1" min="1" max="10"
+                                       class="w-16 text-center border-0 focus:ring-0 bg-white">
+                                <button type="button" onclick="incrementQuantity(@product.Id)"
+                                        class="px-3 py-2 bg-green-100 hover:bg-green-200 transition text-green-700 font-bold">
+                                    +
+                                </button>
+                            </div>
+                            <button onclick="addToCart(@product.Id)"
+                                    class="flex-1 btn-wave bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+                                <span class="marathi-font">कार्टमध्ये घाला</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Order Now Section -->
+        <div class="mt-20 text-center bg-white rounded-2xl shadow-xl p-12 fade-in-up">
+            <h2 class="text-4xl font-bold text-green-800 mb-6 marathi-font">आताच ऑर्डर करा!</h2>
+            <p class="text-xl text-gray-700 mb-8 marathi-font">
+                फोनवर ऑर्डर करा आणि २ तासांत घरपोच सेवा मिळवा
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="tel:+919876543210"
+                   class="btn-wave bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-8 rounded-lg transition duration-300 transform hover:scale-105">
+                    <span class="marathi-font">📞 फोन करा</span>
+                </a>
+                <a href="https://wa.me/919876543210" target="_blank"
+                   class="btn-wave bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-lg transition duration-300 transform hover:scale-105">
+                    <span class="marathi-font">💬 WhatsApp</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Order Modal -->
+<div id="orderModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full m-4 max-h-[90vh] overflow-y-auto">
+        <div class="p-6 border-b border-gray-200">
+            <h3 class="text-2xl font-bold text-green-800 marathi-font">ऑर्डर करा</h3>
+            <button onclick="closeOrderModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl">×</button>
+        </div>
+
+        <form id="orderForm" class="p-6 space-y-4">
+            <div id="orderItems" class="mb-6"></div>
+
+            <div>
+                <label class="block font-semibold mb-2 text-green-800 marathi-font">नाव *</label>
+                <input type="text" name="customerName" required
+                       class="w-full border-2 border-green-200 px-4 py-3 rounded-lg focus:border-green-500 focus:outline-none transition"
+                       placeholder="तुमचे पूर्ण नाव">
+            </div>
+
+            <div>
+                <label class="block font-semibold mb-2 text-green-800 marathi-font">मोबाइल नंबर *</label>
+                <input type="tel" name="phoneNumber" required
+                       class="w-full border-2 border-green-200 px-4 py-3 rounded-lg focus:border-green-500 focus:outline-none transition"
+                       placeholder="+91 98765 43210">
+            </div>
+
+            <div>
+                <label class="block font-semibold mb-2 text-green-800 marathi-font">पत्ता *</label>
+                <textarea name="deliveryAddress" rows="3" required
+                          class="w-full border-2 border-green-200 px-4 py-3 rounded-lg focus:border-green-500 focus:outline-none transition resize-none"
+                          placeholder="डिलिव्हरीचा पूर्ण पत्ता"></textarea>
+            </div>
+
+            <button type="submit"
+                    class="w-full btn-wave bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-lg transition duration-300">
+                <span class="marathi-font">ऑर्डर पाठवा</span>
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    let cart = JSON.parse(localStorage.getItem('gaumataCart')) || [];
+
+    function incrementQuantity(id) {
+        const qtyInput = document.getElementById('qty-' + id);
+        let qty = parseInt(qtyInput.value);
+        if (qty < 10) {
+            qtyInput.value = qty + 1;
+        }
+    }
+
+    function decrementQuantity(id) {
+        const qtyInput = document.getElementById('qty-' + id);
+        let qty = parseInt(qtyInput.value);
+        if (qty > 1) {
+            qtyInput.value = qty - 1;
+        }
+    }
+
+    function addToCart(productId) {
+        const qtyInput = document.getElementById('qty-' + productId);
+        const quantity = parseInt(qtyInput.value);
+
+        fetch('@Url.Action("AddToCart")', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || ''
+            },
+            body: JSON.stringify({ id: productId, quantity: quantity })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'यशस्वी!',
+                    text: data.message,
+                    timer: 2000,
+                    showConfirmButton: false,
+                    confirmButtonColor: '#16A34A'
+                });
+
+                // Update cart counter
+                updateCartCounter();
+
+                // Reset quantity to 1
+                qtyInput.value = 1;
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'त्रुटी!',
+                    text: data.message || 'काहीतरी चूक झाली आहे',
+                    confirmButtonColor: '#16A34A'
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'त्रुटी!',
+                text: 'कार्टमध्ये जोडता आले नाही',
+                confirmButtonColor: '#16A34A'
+            });
+        });
+    }
+
+    function updateCartCounter() {
+        // This should call your backend to get cart count
+        // For now, we'll use a simple counter
+        fetch('@Url.Action("GetCartCount", "Products")')
+            .then(response => response.json())
+            .then(data => {
+                const counter = document.getElementById('cartCounter');
+                const count = document.getElementById('cartCount');
+                if (data.count > 0) {
+                    counter.classList.remove('hidden');
+                    count.textContent = data.count;
+                } else {
+                    counter.classList.add('hidden');
+                }
+            });
+    }
+
+    // Scroll animations
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = 1;
+                entry.target.style.animationPlayState = 'running';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in-up').forEach(el => {
+        el.style.animationPlayState = 'paused';
+        observer.observe(el);
+    });
+
+    // Initialize cart counter on page load
+    updateCartCounter();
+</script>

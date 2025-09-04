@@ -1,0 +1,271 @@
+﻿@{
+    ViewData["Title"] = "मुख्यपृष्ठ";
+}
+
+<!-- Hero Section with Video Background -->
+<!-- Hero Section with Video -->
+<section class="relative h-screen flex items-center justify-center overflow-hidden">
+    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
+        <!-- Primary video source - replace with your actual dairy video -->
+        <source src="/img/bgvideo.mp4" type="video/mp4">
+
+        <!-- Fallback video sources for different formats -->
+        <source src="https://cdn.videvo.net/videvo_files/video/free/2018-05/small_watermarked/180510_05_Farm_03_1080p_preview.mp4" type="video/mp4">
+        <source src="/img/bgvideo.mp4" type="video/mp4">
+
+        <!-- WebM format for better compression -->
+        <source src="https://cdn.videvo.net/videvo_files/video/free/2018-05/small_watermarked/180510_05_Farm_03_1080p_preview.webm" type="video/webm">
+
+        <!-- Fallback image if video fails to load -->
+        Your browser does not support the video tag.
+    </video>
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+    <div class="relative z-10 text-center text-white px-6 max-w-4xl mx-auto">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight animate-pulse">
+            शुद्ध दूध, थेट स्रोतापासून
+        </h1>
+        <p class="text-xl md:text-2xl mb-8 text-gray-200">
+            विश्वसनीय स्थानिक शेतकऱ्यांकडून ताजी आणि निरोगी दुग्धजन्य उत्पादने
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="@Url.Action("Index", "Products")" class="btn-wave bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-lg font-bold text-lg shadow-lg transition transform hover:scale-105">
+                उत्पादने पाहा
+            </a>
+            <a href="#aboutUs" class="btn-wave bg-white text-green-700 px-8 py-4 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl transition transform hover:scale-105">
+                आमच्याबद्दल जाणून घ्या
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<!-- Products Preview Section -->
+<section id="products" class="py-20 px-6">
+    <div class="container mx-auto">
+        <h2 class="text-4xl md:text-6xl font-bold text-center mb-4 text-green-800 marathi-font fade-in-up">
+            आमची उत्पादने
+        </h2>
+        <p class="text-xl text-center mb-12 text-gray-700 marathi-font fade-in-up">
+            शुद्ध आणि ताजी डेरी उत्पादनांचा समृद्ध संग्रह
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-white rounded-2xl shadow-xl p-8 text-center fade-in-up transform hover:scale-105 transition duration-300">
+                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span class="text-4xl">🥛</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 text-green-800 marathi-font">दूध आणि दही</h3>
+                <p class="text-gray-600 marathi-font">दररोज ताजे गोळा केलेले शुद्ध गाईचे दूध आणि पारंपरिक दही</p>
+            </div>
+            <div class="bg-white rounded-2xl shadow-xl p-8 text-center fade-in-up transform hover:scale-105 transition duration-300">
+                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span class="text-4xl">🧀</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 text-green-800 marathi-font">पनीर आणि लोणी</h3>
+                <p class="text-gray-600 marathi-font">हाताने बनवलेले मऊ पनीर आणि मलाईदार ताजे लोणी</p>
+            </div>
+            <div class="bg-white rounded-2xl shadow-xl p-8 text-center fade-in-up transform hover:scale-105 transition duration-300">
+                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span class="text-4xl">🍯</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 text-green-800 marathi-font">तूप आणि इतर</h3>
+                <p class="text-gray-600 marathi-font">पारंपरिक पद्धतीने तयार केलेले शुद्ध तूप आणि फ्लेवर्ड मिल्क</p>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <a href="@Url.Action("Index", "Products")" class="btn-wave bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-lg font-bold text-lg shadow-lg transition duration-300">
+                <span class="marathi-font">सर्व उत्पादने पहा</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- About Us Section -->
+<section id="aboutUs" class="gradient-bg text-white py-20 px-6">
+    <div class="container mx-auto max-w-6xl">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="fade-in-up">
+                <h2 class="text-4xl md:text-6xl font-bold mb-8 marathi-font">आमच्याबद्दल</h2>
+                <div class="space-y-6 text-lg marathi-font">
+                    <p>गौमाता डेरी ही एक कुटुंबीय व्यवसायाची कंपनी आहे जी गेल्या २० वर्षांपासून शुद्ध आणि दर्जेदार डेरी उत्पादने पुरवते आहे.</p>
+                    <p>आम्ही पारंपरिक पद्धतींचा वापर करून आमच्या स्थानिक गायींचे काळजीपूर्वक संगोपन करतो आणि त्यांच्यापासून मिळणाऱ्या दुधाला कोणत्याही प्रकारचे रसायन मिसळत नाही.</p>
+                    <p>आमचे ध्येय आहे प्रत्येक घरापर्यंत शुद्ध आणि पौष्टिक डेरी उत्पादने पोहोचवणे जे आरोग्याला फायदेशीर आहेत.</p>
+                </div>
+
+                <div class="mt-12 grid grid-cols-2 gap-8">
+                    <div class="text-center">
+                        <div class="text-4xl font-bold mb-2">२०+</div>
+                        <div class="marathi-font">वर्षांचा अनुभव</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold mb-2">५००+</div>
+                        <div class="marathi-font">समाधानी ग्राहक</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold mb-2">१००%</div>
+                        <div class="marathi-font">शुद्ध उत्पादने</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold mb-2">२४/७</div>
+                        <div class="marathi-font">उपलब्ध सेवा</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fade-in-up">
+                <img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=800&q=80"
+                     alt="डेरी फार्म"
+                     class="rounded-2xl shadow-2xl w-full h-96 object-cover">
+            </div>
+        </div>
+
+        <div class="mt-16 text-center fade-in-up">
+            <h3 class="text-3xl font-bold mb-8 marathi-font">आमची वैशिष्ट्ये</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white bg-opacity-10 rounded-xl p-6 backdrop-blur-sm">
+                    <div class="text-4xl mb-4">🌱</div>
+                    <h4 class="text-xl font-bold mb-2 marathi-font">सेंद्रिय</h4>
+                    <p class="marathi-font">१००% नैसर्गिक आणि सेंद्रिय पद्धतीने तयार</p>
+                </div>
+                <div class="bg-white bg-opacity-10 rounded-xl p-6 backdrop-blur-sm">
+                    <div class="text-4xl mb-4">🚚</div>
+                    <h4 class="text-xl font-bold mb-2 marathi-font">होम डिलिव्हरी</h4>
+                    <p class="marathi-font">तुमच्या घरी ताजी उत्पादने पोहोचवतो</p>
+                </div>
+                <div class="bg-white bg-opacity-10 rounded-xl p-6 backdrop-blur-sm">
+                    <div class="text-4xl mb-4">⭐</div>
+                    <h4 class="text-xl font-bold mb-2 marathi-font">दर्जेदार</h4>
+                    <p class="marathi-font">उच्च दर्जाची हमी आणि गुणवत्ता तपासणी</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-20 px-6 bg-gray-100">
+    <div class="container mx-auto max-w-6xl">
+        <h2 class="text-4xl md:text-6xl font-bold text-center mb-8 text-green-800 marathi-font fade-in-up">संपर्क साधा</h2>
+        <p class="text-xl text-center mb-12 text-gray-700 marathi-font fade-in-up">
+            ऑर्डर, चौकशी किंवा व्यापारी भागीदारीसाठी आमच्याशी संपर्क साधा
+        </p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div class="fade-in-up">
+                <div class="bg-white rounded-2xl shadow-xl p-8">
+                    <h3 class="text-2xl font-bold mb-6 text-green-800 marathi-font">संपर्क माहिती</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                                <span class="text-green-600 text-xl">📍</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-green-800 marathi-font">पत्ता</h4>
+                                <p class="text-gray-600 marathi-font">गौमाता डेरी, पोलीस स्टेशन जवळ, पारतवाडा 444805 , महाराष्ट्र</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                                <span class="text-green-600 text-xl">📞</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-green-800 marathi-font">फोन नंबर</h4>
+                                <p class="text-gray-600">+91 9373569260</p>
+                                <p class="text-gray-600">+91 9860205363</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                                <span class="text-green-600 text-xl">✉️</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-green-800 marathi-font">ईमेल</h4>
+                                <p class="text-gray-600">abhijeetpohokar@gmail.com</p>
+                                <p class="text-gray-600">akashpohokar@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                                <span class="text-green-600 text-xl">🕒</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-green-800 marathi-font">कार्यकाळ</h4>
+                                <p class="text-gray-600 marathi-font">सकाळ ६:०० - संध्याकाळ ८:००</p>
+                                <p class="text-gray-600 marathi-font">सातही दिवस उपलब्ध</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fade-in-up">
+                <form class="bg-white rounded-2xl shadow-xl p-8" id="contactForm">
+                    <h3 class="text-2xl font-bold mb-6 text-green-800 marathi-font">संदेश पाठवा</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block font-semibold mb-2 text-green-800 marathi-font">नाव *</label>
+                            <input type="text" name="name" required
+                                   class="w-full border-2 border-green-200 px-4 py-3 rounded-lg focus:border-green-500 focus:outline-none transition"
+                                   placeholder="तुमचे पूर्ण नाव">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-2 text-green-800 marathi-font">मोबाइल नंबर *</label>
+                            <input type="tel" name="phone" required
+                                   class="w-full border-2 border-green-200 px-4 py-3 rounded-lg focus:border-green-500 focus:outline-none transition"
+                                   placeholder="+91 98765 43210">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-2 text-green-800 marathi-font">संदेश *</label>
+                            <textarea name="message" rows="4" required
+                                      class="w-full border-2 border-green-200 px-4 py-3 rounded-lg focus:border-green-500 focus:outline-none transition resize-none"
+                                      placeholder="तुमचा संदेश येथे लिहा..."></textarea>
+                        </div>
+                        <button type="submit"
+                                class="w-full btn-wave bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-lg transition duration-300 transform hover:scale-105">
+                            <span class="marathi-font">संदेश पाठवा</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Scroll animations
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = 1;
+                entry.target.style.animationPlayState = 'running';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in-up').forEach(el => {
+        el.style.animationPlayState = 'paused';
+        observer.observe(el);
+    });
+
+    // Contact form submission
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData);
+
+        Swal.fire({
+            icon: 'success',
+            title: 'संदेश पाठविला गेला!',
+            text: 'आम्ही लवकरच तुमच्याशी संपर्क साधू. धन्यवाद!',
+            confirmButtonColor: '#16A34A',
+            confirmButtonText: 'ठीक आहे'
+        });
+
+        this.reset();
+    });
+</script>
