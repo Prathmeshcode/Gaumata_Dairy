@@ -1,15 +1,21 @@
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
-WORKDIR /app
-EXPOSE 80
-
+# Use official .NET 6 SDK to build
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY . .
-RUN dotnet restore "Gaumata_Dairy.csproj"
-RUN dotnet build "Gaumata_Dairy.csproj" -c Release -o /app/build
-RUN dotnet publish "Gaumata_Dairy.csproj" -c Release -o /app/publish
 
-FROM base AS final
+# copy everything
+COPY . .
+
+# restore and publish
+RUN dotnet restore
+RUN dotnet publish -c Release -o /app
+
+# runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
 WORKDIR /app
-COPY --from=build /app/publish .
+COPY --from=build /app ./
+
+# set entrypoint (replace with your project dll)
 ENTRYPOINT ["dotnet", "Gaumata_Dairy.dll"]
+
+# expose port 8080 for Render
+EXPOSE 8080
